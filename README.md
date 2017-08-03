@@ -118,9 +118,21 @@ scale： 比例：如 4
 【3】原图格式检验+水印
 【4】索引图片,转成位图再加图片
 
+操作结果：
+![Akon_coder](https://github.com/AkonCoder/CreateQrCodeAndMergeImage/blob/master/CreateQrCodeAndMergeImage/TestImg/2.png)   
+
 等一系列操作。合成完成以后保存在bin目录下的ProductWaterMark文件下：
 
+![Akon_coder](https://github.com/AkonCoder/CreateQrCodeAndMergeImage/blob/master/CreateQrCodeAndMergeImage/TestImg/1.png) 
 
+有问题欢迎随时反馈：
+微信：Akon_Coder 
+QQ: 1013630498
+
+
+
+
+  
 
 
 
