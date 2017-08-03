@@ -134,7 +134,7 @@
 ![Akon_coder](https://github.com/AkonCoder/CreateQrCodeAndMergeImage/blob/master/CreateQrCodeAndMergeImage/TestImg/1.png) 
 
 生成的物料二维码图片为：
-https://github.com/AkonCoder/CreateQrCodeAndMergeImage/blob/master/CreateQrCodeAndMergeImage/TestImg/3.png) 
+![Akon_coder](https://github.com/AkonCoder/CreateQrCodeAndMergeImage/blob/master/CreateQrCodeAndMergeImage/TestImg/3.png) 
 
 
 有问题欢迎随时反馈：
