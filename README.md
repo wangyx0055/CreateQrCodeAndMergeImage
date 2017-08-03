@@ -1,7 +1,9 @@
 # 二维码自动生成并合成图片
 @(二维码生成)[图片合并|物料|扫码]
 
-**CreateQrCodeAndMergeImage**用于自动生成二维码，拼接模板图片，合成生成二维码物料图片，主要用于微信会员卡商家张贴物料二维码图片，用户扫码领卡，类似于支付宝收款码物料！
+**CreateQrCodeAndMergeImage**用于自动生成二维码，拼接模板图片，合成生成二维码物料图片，
+
+主要用于微信会员卡商家张贴物料二维码图片，用户扫码领卡，类似于支付宝收款码物料！
 
 
 ## 生成二维码
@@ -12,82 +14,85 @@
 
 #### (2)http://blog.csdn.net/u012611878/article/details/53167009
 
-本文的用户场景是需要根据短链接生成二维码，然后合并物料二维码的模板（有自己的样式的图片，）,批量生成多张物料图片
+本文的用户场景是需要根据短链接生成二维码，然后合并物料二维码的模板（有自己的样式的图片）,
 
-交付给文印室打印寄出，用户扫码进行微信会员卡的领卡二维码绑定。绑定后用户到店消费扫描二维码即可领卡成为会员。
+批量生成多张物料图片交付给文印室打印寄出，B端商户扫码进行账号绑定（二维码地址的重定向）。
+
+绑定后C端用户到店消费扫描二维码即可领卡成为会员。
 
 
 其中生成二维码的方法代码：
 ``` python
-        /// <summary>
-        /// 生成二维码方法（复杂）
-        /// </summary>
-        /// <param name="strData">要生成的文字或者数字，支持中文。如： "15377541070 上海 Akon_Coder</param>
-        /// <param name="qrEncoding">三种尺寸：BYTE ，ALPHA_NUMERIC，NUMERIC</param>
-        /// <param name="level">大小：L M Q H</param>
-        /// <param name="version">版本：如 8</param>
-        /// <param name="scale">比例：如 4</param>
-        /// <returns></returns>
-        public static string CreateCode_Choose(string strData, string qrEncoding, string level, int version, int scale)
-        {
-            var qrCodeEncoder = new QRCodeEncoder();
-            string encoding = qrEncoding;
-            switch (encoding)
-            {
-                case "Byte":
-                    qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-                    break;
-                case "AlphaNumeric":
-                    qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.ALPHA_NUMERIC;
-                    break;
-                case "Numeric":
-                    qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.NUMERIC;
-                    break;
-                default:
-                    qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-                    break;
-            }
+	/// <summary>
+	/// 生成二维码方法（复杂）
+	/// </summary>
+	/// <param name="strData">要生成的文字或者数字，支持中文。如： "15377541070 上海 Akon_Coder</param>
+	/// <param name="qrEncoding">三种尺寸：BYTE ，ALPHA_NUMERIC，NUMERIC</param>
+	/// <param name="level">大小：L M Q H</param>
+	/// <param name="version">版本：如 8</param>
+	/// <param name="scale">比例：如 4</param>
+	/// <returns></returns>
+	public static string CreateCode_Choose(string strData, string qrEncoding, string level, int version, int scale)
+	{
+		var qrCodeEncoder = new QRCodeEncoder();
+		string encoding = qrEncoding;
+		switch (encoding)
+		{
+			case "Byte":
+				qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+				break;
+			case "AlphaNumeric":
+				qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.ALPHA_NUMERIC;
+				break;
+			case "Numeric":
+				qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.NUMERIC;
+				break;
+			default:
+				qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+				break;
+		}
 
-            qrCodeEncoder.QRCodeScale = scale;
-            qrCodeEncoder.QRCodeVersion = version;
-            switch (level)
-            {
-                case "L":
-                    qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.L;
-                    break;
-                case "M":
-                    qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
-                    break;
-                case "Q":
-                    qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
-                    break;
-                default:
-                    qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.H;
-                    break;
-            }
-            //文字生成图片
-            Image image = qrCodeEncoder.Encode(strData);
-            var filename = DateTime.Now.ToString("yyyymmddhhmmssfff") + ".jpg";
-            var filepath = AppDomain.CurrentDomain.BaseDirectory + @"\UploadPic\" + filename;
-            var fs = new FileStream(filepath, FileMode.OpenOrCreate, FileAccess.Write);
-            image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
-            fs.Close();
-            image.Dispose();
-            return filepath;
-        }
+		qrCodeEncoder.QRCodeScale = scale;
+		qrCodeEncoder.QRCodeVersion = version;
+		switch (level)
+		{
+			case "L":
+				qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.L;
+				break;
+			case "M":
+				qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+				break;
+			case "Q":
+				qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
+				break;
+			default:
+				qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.H;
+				break;
+		}
+		//文字生成图片
+		Image image = qrCodeEncoder.Encode(strData);
+		var filename = DateTime.Now.ToString("yyyymmddhhmmssfff") + ".jpg";
+		var filepath = AppDomain.CurrentDomain.BaseDirectory + @"\UploadPic\" + filename;
+		var fs = new FileStream(filepath, FileMode.OpenOrCreate, FileAccess.Write);
+		image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+		fs.Close();
+		image.Dispose();
+		return filepath;
+	}
 ```
 其中的参数：
-strData：要生成的文字或者数字，支持中文。如：strData是要生成的文字或者数字，支持中文
 
-如： "15377541070 上海 Akon_Coder；
+（1）strData：要生成的文字或者数字，支持中文。如：strData是要生成的文字或者数字，
 
-qrEncoding： 三种尺寸：BYTE ，ALPHA_NUMERIC，NUMERIC
+支持中文如： "15377541070 上海 Akon_Coder；
 
-level ：大小：L M Q H<
+（2）qrEncoding： 三种尺寸：BYTE ，ALPHA_NUMERIC，NUMERIC
 
-version： 版本：如 8
+（3）level ：大小：L M Q H
 
-scale： 比例：如 4
+（4）version： 版本：如 8
+
+（5）scale： 比例：如 4
 
 ## 合并图片
 
@@ -114,8 +119,11 @@ scale： 比例：如 4
 先获取物料模板图片，然后根据图片的路径创建合成图片的存放目录。其中打水印后生成新的图片设计到
 
 【1】新建一个Image属性  
+
 【2】将颜色矩阵添加到属性
+
 【3】原图格式检验+水印
+
 【4】索引图片,转成位图再加图片
 
 操作结果：
@@ -125,8 +133,14 @@ scale： 比例：如 4
 
 ![Akon_coder](https://github.com/AkonCoder/CreateQrCodeAndMergeImage/blob/master/CreateQrCodeAndMergeImage/TestImg/1.png) 
 
+生成的物料二维码图片为：
+https://github.com/AkonCoder/CreateQrCodeAndMergeImage/blob/master/CreateQrCodeAndMergeImage/TestImg/3.png) 
+
+
 有问题欢迎随时反馈：
+
 微信：Akon_Coder 
+
 QQ: 1013630498
 
 

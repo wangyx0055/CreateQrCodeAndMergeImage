@@ -20,7 +20,7 @@ namespace CreateQrCodeAndMergeImage
             }
             else
             {
-                var jumpAddress = "https://www.baidu.com/";
+                var jumpAddress = "https://github.com/AkonCoder/CreateQrCodeAndMergeImage/";
                 var createNum = Convert.ToInt32(readCount);
                 const string qrEncodingType = "BYTE";
                 const string createLevel = "H";
